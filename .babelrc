@@ -1,0 +1,6 @@
+{
+    "presets": [
+        "@babel/preset-env", //Allow us to work with ES6+
+        "@babel/preset-react" //Allow us to work with files .jsx
+    ]
+}
