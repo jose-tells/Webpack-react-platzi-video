@@ -6,7 +6,8 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/'
     },
     resolve: {
         extensions: ['.js', '.jsx']
@@ -37,8 +38,27 @@ module.exports = {
                     'css-loader',
                     'stylus-loader',
                 ]
+            },
+            {
+                test: /\.(jpg|png|gif)$/,
+                use : [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/[hash].[ext]'
+                        }
+                    }
+                ]
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
+        compress: true,
+        open: true,
+        port: 6969,  
+        lazy: false,
+        filename: 'bundle.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
