@@ -9,20 +9,21 @@ import playIcon from '../assets/static/play-icon.png';
 import plusIcon from '../assets/static/plus-icon.png';
 import removeIcon from '../assets/static/remove-icon.png';
 // Connect
-import { setFavorite, deleteFavorite } from '../actions';
+import { favoriteUserMovies, deleteUserMovies } from '../actions';
 
 const CarouselItem = (props) => {
 
-  const { id, cover, title, year, contentRating, duration, isList } = props;
+  const { id, movieId, userId, cover, title, year, contentRating, duration, isList, selectMovie, movieExists } = props;
 
   const handleSetFavorite = () => {
-    props.setFavorite({
-      id, cover, title, year, contentRating, duration,
-    });
+    selectMovie(movieId);
+    if (!movieExists) {
+      props.favoriteUserMovies(userId, { id, movieId, cover, title, year, contentRating, duration });
+    };
   };
 
-  const handleDeleteFavorite = (itemId) => {
-    props.deleteFavorite(itemId);
+  const handleDeleteFavorite = () => {
+    props.deleteUserMovies(movieId, id);
   };
 
   return (
@@ -42,7 +43,7 @@ const CarouselItem = (props) => {
               className='carousel-item__details--img'
               src={removeIcon}
               alt='Remove Icon'
-              onClick={() => handleDeleteFavorite(id)}
+              onClick={handleDeleteFavorite}
             />
           ) : (
             <img
@@ -72,8 +73,8 @@ CarouselItem.propTypes = {
 };
 
 const mapDispatchToProps = {
-  setFavorite,
-  deleteFavorite,
+  favoriteUserMovies,
+  deleteUserMovies,
 };
 
 export default connect(null, mapDispatchToProps)(CarouselItem);

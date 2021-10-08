@@ -6,7 +6,7 @@ import Header from '../Header';
 //Styles
 import '../../assets/styles/components/Register.styl';
 // Actions
-import { registerRequest } from '../../actions';
+import { registeUser } from '../../actions';
 
 const Register = (props) => {
 
@@ -25,8 +25,7 @@ const Register = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.registerRequest(form);
-    props.history.push('/');
+    props.registeUser(form, '/login');
   };
 
   return (
@@ -57,7 +56,7 @@ const Register = (props) => {
               placeholder='Contraseña'
               onChange={handleInput}
             />
-            <button type='button' className='button'>Registrarme</button>
+            <button type='submit' className='button'>Registrarme</button>
           </form>
           <Link to='/login'>
             Iniciar sesión
@@ -69,7 +68,7 @@ const Register = (props) => {
 };
 
 const mapDispatchToProps = {
-  registerRequest,
+  registeUser,
 };
 
 export default connect(null, mapDispatchToProps)(Register);

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 // Reducers
 import { connect } from 'react-redux';
 // Gravatar
-import gravatar from '../utils/gravatar';
+// import gravatar from '../utils/gravatar';
 // Styles
 import '../assets/styles/components/Header.styl';
 // Images
@@ -23,7 +23,12 @@ const Header = (props) => {
   const hasUser = Object.keys(user).length > 0;
 
   const handleLogout = () => {
+    document.cookie = 'id=';
+    document.cookie = 'name=';
+    document.cookie = 'email=';
+    document.cookie = 'token=';
     props.logoutRequest({});
+    window.location.href = '/login';
   };
 
   const headerClass = classNames('header', {
@@ -40,7 +45,7 @@ const Header = (props) => {
         <div className='header__menu--profile'>
           {
             hasUser ?
-              <img src={gravatar(user.email)} alt={user.email} /> :
+              <img src={user.email} alt={user.email} /> :
               <img src={UserIcon} alt='' />
           }
           <p>Perfil</p>

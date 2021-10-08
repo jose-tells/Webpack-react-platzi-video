@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // Connect from react-redux
 import { connect } from 'react-redux';
 // Proptypes validations
@@ -12,7 +12,11 @@ import CarouselItem from '../CarouselItem';
 //Styles
 import '../../assets/styles/App.styl';
 
-const Home = ({ myList, trends, originals, find }) => {
+const Home = ({ user, myList, trends, originals, find }) => {
+
+  const [movieIdSelected, selectMovie] = useState(0);
+
+  const movieExists = myList.find((movie) => movie._id === movieIdSelected || movie.movieId === movieIdSelected);
 
   if (find.length > 0) {
     return (
@@ -23,8 +27,10 @@ const Home = ({ myList, trends, originals, find }) => {
           <Carousel>
             {find.map((item) => (
               <CarouselItem
-                key={item.id}
+                key={Number(item.id)}
                 id={item.id}
+                movieId={item._id}
+                userId={user.id}
                 cover={item.cover}
                 title={item.title}
                 year={item.year}
@@ -34,6 +40,7 @@ const Home = ({ myList, trends, originals, find }) => {
             ))}
             ;
           </Carousel>
+          <h2>{}</h2>
         </Categories>
       </>
     );
@@ -46,18 +53,24 @@ const Home = ({ myList, trends, originals, find }) => {
       {myList.length > 0 && (
         <Categories title='Mi lista'>
           <Carousel>
-            {myList.map((item) => (
-              <CarouselItem
-                key={item.id}
-                id={item.id}
-                cover={item.cover}
-                title={item.title}
-                year={item.year}
-                contentRating={item.contentRating}
-                duration={item.duration}
-                isList
-              />
-            ))}
+            {myList.map((item) => {
+              const itemId = item._id ? item._id : item.movieId;
+              return (
+                <CarouselItem
+                  key={Number(item.id)}
+                  id={item.id}
+                  movieId={itemId}
+                  userId={user.id}
+                  cover={item.cover}
+                  title={item.title}
+                  year={item.year}
+                  contentRating={item.contentRating}
+                  duration={item.duration}
+                  isList
+                  movieExists={movieExists}
+                />
+              );
+            })}
             ;
           </Carousel>
         </Categories>
@@ -67,13 +80,17 @@ const Home = ({ myList, trends, originals, find }) => {
         <Carousel>
           {trends.map((item) => (
             <CarouselItem
-              key={item.id}
+              key={Number(item.id)}
               id={item.id}
+              movieId={item._id}
+              userId={user.id}
               cover={item.cover}
               title={item.title}
               year={item.year}
               contentRating={item.contentRating}
               duration={item.duration}
+              selectMovie={selectMovie}
+              movieExists={movieExists}
             />
           ))}
         </Carousel>
@@ -88,11 +105,15 @@ const Home = ({ myList, trends, originals, find }) => {
             <CarouselItem
               key={item.id}
               id={item.id}
+              movieId={item._id}
+              userId={user.id}
               cover={item.cover}
               title={item.title}
               year={item.year}
               contentRating={item.contentRating}
               duration={item.duration}
+              selectMovie={selectMovie}
+              movieExists={movieExists}
             />
           ))}
           ;
@@ -103,6 +124,7 @@ const Home = ({ myList, trends, originals, find }) => {
 };
 
 Home.propTypes = {
+  user: PropTypes.object,
   myList: PropTypes.array,
   trends: PropTypes.array,
   originals: PropTypes.array,
@@ -111,6 +133,7 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     myList: state.myList,
     trends: state.trends,
     originals: state.originals,

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../Header';
 // Redux
-import { loginRequest } from '../../actions';
+import { loginUser } from '../../actions';
 // Images
 import googleIcon from '../../assets/static/google-icon.png';
 import twitterIcon from '../../assets/static/twitter-icon.png';
@@ -26,8 +26,7 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.loginRequest(form);
-    props.history.push('/');
+    props.loginUser(form, '/');
   };
 
   return (
@@ -51,7 +50,7 @@ const Login = (props) => {
               placeholder='Contraseña'
               onChange={handleInput}
             />
-            <button type='button' className='button'>Iniciar sesión</button>
+            <button type='submit' className='button'>Iniciar sesión</button>
             <div className='login__container--remember-me'>
               <label htmlFor='cbox1'>
                 <input
@@ -92,7 +91,7 @@ const Login = (props) => {
 };
 
 const mapDispatchToProps = {
-  loginRequest,
+  loginUser,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
