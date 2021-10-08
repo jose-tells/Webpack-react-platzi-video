@@ -70,7 +70,7 @@ if (env === 'development') {
       useDefaults: true,
       directives: {
         'default-src': ["'self'"],
-        'script-src': ["'self'", "'sha256-NWxKQJgRj6SeFh+p06unga84IvUrcERYXv0iIQRWBe4='"],
+        'script-src': ["'self'", "'unsafe-inline'"],
         'img-src': ["'self'", 'http://dummyimage.com'],
         'style-src-elem': ["'self'", 'https://fonts.googleapis.com'],
         'font-src': ['https://fonts.gstatic.com'],
