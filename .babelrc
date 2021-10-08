@@ -2,5 +2,8 @@
     "presets": [
         "@babel/preset-env", //Allow us to work with ES6+
         "@babel/preset-react" //Allow us to work with files .jsx
+    ],
+    "plugins": [
+        "react-hot-loader/babel" // In this line we're indicating to Babel that charges react-hot-loader ft babel
     ]
 }
