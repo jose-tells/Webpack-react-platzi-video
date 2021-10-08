@@ -46,6 +46,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
+    "stylus": "^0.55.0",
     "webpack": "^5.48.0",
     "webpack-manifest-plugin": "^4.0.2"
   },
@@ -61,13 +62,12 @@
     "file-loader": "^5.1.0",
     "jest": "^27.2.4",
     "mini-css-extract-plugin": "^1.6.0",
-    "stylus": "^0.54.8",
     "stylus-loader": "^6.1.0",
     "webpack-cli": "^4.7.2",
     "webpack-dev-middleware": "^3.7.3",
     "webpack-hot-middleware": "^2.25.0"
   },
-    "engines": {
-      "node": "14.17.x"
-    }
+  "engines": {
+    "node": "14.17.x"
+  }
 }
